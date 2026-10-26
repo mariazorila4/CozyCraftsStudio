@@ -1,11 +1,25 @@
 package ro.ase.cozycrafts.exception;
 
+/**
+ * Exceptie aruncata atunci cand datele unui produs nu sunt valide
+ * (pret<=0, stoc negativ, campuri goale, format gresit etc)
+ */
+
 public class InvalidProductDataException extends Exception {
-    public InvalidProductDataException(String message) {
-        super(message);
+    private static final long serialVersionUID=1L;
+
+    /**
+     * constructor implicit
+     */
+    public InvalidProductDataException() {
+        super();
     }
 
-    public InvalidProductDataException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    /**
+     *
+     * @param message descrierea erorii aparute
+     */
+    public InvalidProductDataException(String message) {
+        super(message);
     }
 }
