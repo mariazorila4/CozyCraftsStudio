@@ -9,8 +9,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * clasa singleton care gestioneaza in memorie starea magazinului online
+ * produsele sunt memorate in doua colectii iar vanzarile in doua masive
+ * context pentru patternul strategy
+ * toate modificarile se fac in memorie, salvarea in fisiere se face la inchiderea aplicatiei
+ */
 public class MagazinService {
-    private static MagazinService instance;
+    public static final String fisierProduse="data/produse.txt";
+    public static final String fisierVanzari="data/vanzari.txt";
+    public static final String fisierRaport="data/raport_magazin.txt";
+
+    private static MagazinService instance=null;
 
     private StorageStrategy storageStrategy;
 
@@ -18,14 +28,14 @@ public class MagazinService {
     private Map<String, Produs> mapProduse;
 
     private double[] vanzariLunare;
-    private int[][] distributieStocDepozit;
+    private int[][] bucatiVandute;
 
     public MagazinService() {
         this.storageStrategy = new TextFileStorageStrategy();
         this.listaProduse = new ArrayList<>();
         this.mapProduse = new HashMap<>();
         this.vanzariLunare = new double[12];
-        this.distributieStocDepozit = new int[3][4];
+        this.bucatiVandute = new int[3][4];
     }
 
     public static synchronized MagazinService getInstance(){
@@ -42,7 +52,7 @@ public class MagazinService {
     }
 
     public void salveazaDateInFisier(String caleFisier)throws Exception{
-        this.storageStrategy.salveazaProdus(caleFisier, this.listaProduse);
+        this.storageStrategy.salveazaProduse(caleFisier, this.listaProduse);
     }
 
     public void incarcaDateDinFisier(String caleFisier) throws Exception{
